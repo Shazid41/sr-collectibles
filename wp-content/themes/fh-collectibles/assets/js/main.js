@@ -124,6 +124,25 @@
 
 		goTo( 0 );
 		play();
+
+		// 3D tilt: the hero scene leans subtly toward the cursor.
+		var tiltRaf = null, tiltPX = 0, tiltPY = 0;
+		hero.addEventListener( 'pointermove', function ( event ) {
+			if ( prefersReducedMotion || event.pointerType === 'touch' ) { return; }
+			var rect = hero.getBoundingClientRect();
+			tiltPX = ( ( event.clientX - rect.left ) / rect.width - 0.5 ) * 2;
+			tiltPY = ( ( event.clientY - rect.top ) / rect.height - 0.5 ) * 2;
+			if ( tiltRaf ) { return; }
+			tiltRaf = requestAnimationFrame( function () {
+				tiltRaf = null;
+				hero.style.setProperty( '--fh-tilt-y', ( tiltPX * 3.4 ).toFixed( 2 ) + 'deg' );
+				hero.style.setProperty( '--fh-tilt-x', ( tiltPY * -2.4 ).toFixed( 2 ) + 'deg' );
+			} );
+		} );
+		hero.addEventListener( 'pointerleave', function () {
+			hero.style.setProperty( '--fh-tilt-y', '0deg' );
+			hero.style.setProperty( '--fh-tilt-x', '0deg' );
+		} );
 	}
 
 	/* ------------------------------------------------------------------
