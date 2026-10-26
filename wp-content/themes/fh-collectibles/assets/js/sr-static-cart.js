@@ -122,7 +122,9 @@
       '.sr-mobile-line{display:block}',
       '.woocommerce a.fh-btn--gold, .woocommerce-orders-wrapper a.fh-btn--gold{color:#17070a !important}',
       'a.fh-btn--gold{color:#17070a !important}',
-      'a.fh-btn--dark{color:#fff !important}'
+      'a.fh-btn--dark{color:#fff !important}',
+      'a.fh-add-to-cart.sr-added{border-color:#e9c65a !important;background:rgba(233,198,90,.16) !important;color:#e9c65a !important}',
+      'a.fh-add-to-cart.loading,a.fh-add-to-cart.is-loading{pointer-events:auto}'
     ].join('\n');
     document.head.appendChild(s);
   }
@@ -138,6 +140,8 @@
   }
 
   /* ---------------- interception: add to cart ---------------- */
+  // Registered in CAPTURE phase with stopPropagation so WooCommerce's own
+  // ajax handler (which spins forever on a static host) never sees the click.
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a.add_to_cart_button, a[href*="add-to-cart="]');
     if (a) {
@@ -145,8 +149,14 @@
       var id = m ? +m[1] : +(a.getAttribute('data-product_id') || 0);
       if (!id) return;
       e.preventDefault();
+      e.stopPropagation();
+      a.classList.remove('loading', 'is-loading');
       var qty = +(a.getAttribute('data-quantity') || 1);
       addToCart(id, qty);
+      var orig = a.textContent;
+      a.textContent = 'Added \u2713';
+      a.classList.add('sr-added');
+      setTimeout(function () { a.textContent = orig; a.classList.remove('sr-added'); }, 1400);
       products().then(function (list) {
         toast('Added to cart: ' + byId(list, id).name, 'View cart', UP + 'cart/');
       });
@@ -158,7 +168,7 @@
     if (inc) { e.preventDefault(); var i = +inc.getAttribute('data-sr-inc'); setQty(i, (readCart()[i] || 0) + 1); renderCartPage(); return; }
     var dec = e.target.closest && e.target.closest('[data-sr-dec]');
     if (dec) { e.preventDefault(); var d = +dec.getAttribute('data-sr-dec'); setQty(d, (readCart()[d] || 0) - 1); renderCartPage(); return; }
-  });
+  }, true);
 
   document.addEventListener('submit', function (e) {
     var f = e.target;
