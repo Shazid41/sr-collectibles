@@ -11,8 +11,7 @@ wp-config.php
 debug.log
 error_log
 
-# ---- Runtime media & caches (never publish) ----
-wp-content/uploads/
+# ---- Runtime caches (never publish) ----
 wp-content/cache/
 wp-content/upgrade/
 wp-content/backup*/
