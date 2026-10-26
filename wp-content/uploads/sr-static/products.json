@@ -1,0 +1,86 @@
+{
+    "currency": "$",
+    "products": [
+        {
+            "id": 29,
+            "sku": "FH-APEX-01",
+            "name": "APEX Series 01 \u2014 24K Gold Chassis",
+            "short": "Numbered 042/500. Mirror chrome, micro-machined wheels, display pedestal.",
+            "price": 48,
+            "img": "/wp-content/uploads/2026/10/hero-burgundy-600x335.jpg",
+            "url": "product/apex-series-01-gold-chassis/"
+        },
+        {
+            "id": 27,
+            "sku": "FH-HW-CRIMSON",
+            "name": "Hot Wheels Keychain \u2014 Scuderia Crimson Coupe",
+            "short": "Limited crimson coupe with RACING livery.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-crimson-600x600.jpg",
+            "url": "product/hot-wheels-keychain-scuterria-crimson/"
+        },
+        {
+            "id": 23,
+            "sku": "FH-HW-LIME",
+            "name": "Hot Wheels Keychain \u2014 Viper Acid Lime Track",
+            "short": "Acid lime green with black track accents.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-lime-600x600.jpg",
+            "url": "product/hot-wheels-keychain-viper-lime/"
+        },
+        {
+            "id": 25,
+            "sku": "FH-HW-BURGUNDY",
+            "name": "Hot Wheels Keychain \u2014 Classic Burgundy GT",
+            "short": "Deep burgundy grand tourer with gold stripes.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-burgundy-600x600.jpg",
+            "url": "product/hot-wheels-keychain-classic-burgundy/"
+        },
+        {
+            "id": 21,
+            "sku": "FH-HW-STEALTH",
+            "name": "Hot Wheels Keychain \u2014 Matte Shadow Stealth",
+            "short": "Matte graphite hypercar with gold details.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-stealth-600x600.jpg",
+            "url": "product/hot-wheels-keychain-shadow-stealth/"
+        },
+        {
+            "id": 19,
+            "sku": "FH-HW-SUNSET",
+            "name": "Hot Wheels Keychain \u2014 Sunset Flare Orange",
+            "short": "Flare orange with gold accent wheels.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-sunset-600x600.jpg",
+            "url": "product/hot-wheels-keychain-sunset-orange/"
+        },
+        {
+            "id": 17,
+            "sku": "FH-HW-DAYTONA",
+            "name": "Hot Wheels Keychain \u2014 Electric Daytona Blue",
+            "short": "Electric blue mid-engine coupe, gold wheels.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-daytona-600x600.jpg",
+            "url": "product/hot-wheels-keychain-daytona-blue/"
+        },
+        {
+            "id": 15,
+            "sku": "FH-HW-ALPINE",
+            "name": "Hot Wheels Keychain \u2014 Alpine White Track Spec",
+            "short": "Track-spec white supercar with aero details.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-alpine-600x600.jpg",
+            "url": "product/hot-wheels-keychain-alpine-white/"
+        },
+        {
+            "id": 13,
+            "sku": "FH-HW-ONYX",
+            "name": "Hot Wheels Keychain \u2014 Midnight Onyx Edition",
+            "short": "Glossy black die-cast with gold racing livery.",
+            "price": 24,
+            "img": "/wp-content/uploads/2026/10/product-onyx-600x600.jpg",
+            "url": "product/hot-wheels-keychain-midnight-onyx/"
+        }
+    ]
+}
