@@ -30,16 +30,18 @@ A dark, burgundy-and-gold ecommerce experience for die-cast collectible keychain
 ## Repository structure
 
 ```
-├── docs/            Static export of the storefront (GitHub Pages)
+├── (root)           Static storefront — served by GitHub Pages
+├── docs/            Identical copy of the static export (alternative Pages source)
 ├── screenshots/     Visual verification captures
 ├── src/
 │   ├── themes/fh-collectibles/   Custom WordPress theme
 │   ├── plugins/sr-payments/      Card + bKash gateways, payment popup
 │   └── mu-plugins/               Preview helpers
-└── tools/          Build scripts used to produce docs/
+└── tools/          Build scripts used to produce the static export
 ```
 
-The static demo in `docs/` is generated with Simply Static — cart and checkout actions
+The static demo (site files at the repository root, duplicated in `docs/`) is
+generated with Simply Static — cart and checkout actions
 need the live WordPress backend and are non-functional there.
 
 ## Running locally
