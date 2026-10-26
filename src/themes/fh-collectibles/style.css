@@ -1627,3 +1627,83 @@ select optgroup {
   }
   [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* ==========================================================================
+   15. Product review form + star rating (static build fixes)
+   ========================================================================== */
+
+/* The WooCommerce icon font is not shipped in the static export, so the star
+   widget (p.stars) and display ratings (.star-rating) fall back to tofu boxes.
+   Re-render them with real Unicode stars from a system symbol font. */
+.comment-form-rating p.stars a::before,
+.comment-form-rating p.stars::before,
+.star-rating::before,
+.star-rating span::before {
+  font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols2", "DejaVu Sans", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+.star-rating { width: 6.2em; height: 1.1em; line-height: 1.1; font-size: 15px; display: inline-block; position: relative; overflow: hidden; letter-spacing: 2px; }
+.star-rating::before { content: "\2606\2606\2606\2606\2606" !important; color: #5a464c; }
+.star-rating span::before { content: "\2605\2605\2605\2605\2605" !important; color: var(--fh-gold); }
+
+.comment-form-rating { margin: 4px 0 20px; }
+.comment-form-rating label { display: block; color: var(--fh-muted); font-size: 13px; margin-bottom: 8px; }
+.comment-form-rating p.stars { display: inline-block; font-size: 30px; line-height: 1; letter-spacing: 4px; }
+.comment-form-rating p.stars a { position: relative; display: inline-block; width: 1em; height: 1em; color: transparent; text-indent: 0; text-decoration: none; }
+.comment-form-rating p.stars a::before { content: "\2606" !important; color: #5a464c; }
+.comment-form-rating p.stars a:hover::before,
+.comment-form-rating p.stars:hover a::before,
+.comment-form-rating p.stars.selected a.active::before,
+.comment-form-rating p.stars.selected a:not(.active)::before { content: "\2605" !important; color: var(--fh-gold); }
+.comment-form-rating p.stars a:hover ~ a::before,
+.comment-form-rating p.stars.selected a.active ~ a::before { content: "\2606" !important; color: #5a464c; }
+.comment-form-rating select#rating { background: var(--fh-input); color: var(--fh-white); border: 1px solid rgba(233, 198, 90, 0.25); border-radius: 8px; padding: 10px 12px; }
+
+/* Dark, on-brand comment form fields */
+.comment-form input[type='text'],
+.comment-form input[type='email'],
+.comment-form input[type='url'],
+.comment-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--fh-input);
+  color: var(--fh-white);
+  border: 1px solid rgba(233, 198, 90, 0.22);
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--fh-font-sans);
+}
+.comment-form textarea { min-height: 130px; resize: vertical; line-height: 1.6; }
+.comment-form input::placeholder,
+.comment-form textarea::placeholder { color: #6d555a; }
+.comment-form input[type='text']:focus,
+.comment-form input[type='email']:focus,
+.comment-form input[type='url']:focus,
+.comment-form textarea:focus { outline: none; border-color: var(--fh-gold); background: #2a1519; }
+.comment-form > p { margin: 0 0 16px; }
+.comment-form label { color: var(--fh-muted); font-size: 13px; }
+.comment-form .comment-form-author label,
+.comment-form .comment-form-email label,
+.comment-form .comment-form-url label { display: block; margin-bottom: 6px; }
+.comment-form .comment-form-cookies-consent { display: flex; align-items: flex-start; gap: 9px; }
+.comment-form .comment-form-cookies-consent input { width: auto; margin-top: 3px; accent-color: var(--fh-gold); }
+.comment-form .comment-form-cookies-consent label { font-size: 13px; color: var(--fh-muted-2, #9b8a83); }
+#respond .comment-form-title,
+.comment-form .required { color: var(--fh-gold); }
+.woocommerce #respond input#submit,
+.comment-form .form-submit input#submit {
+  background: var(--fh-gold);
+  color: #17070a;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 26px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s var(--fh-ease), transform 0.2s var(--fh-ease);
+}
+.woocommerce #respond input#submit:hover,
+.comment-form .form-submit input#submit:hover { background: var(--fh-white); transform: translateY(-1px); }
