@@ -1,0 +1,37 @@
+SR COLLECTIBLES — LICENSE & USAGE TERMS
+========================================
+
+Copyright (c) 2026 Md Shazidur Rahaman. All Rights Reserved.
+
+GRANT OF VIEWING RIGHTS
+-----------------------
+Permission is granted to view and browse the contents of this repository
+for personal evaluation and portfolio-review purposes only.
+
+RESTRICTIONS
+------------
+Without prior written permission from the copyright holder, you may not:
+
+1. Copy, reproduce, or redistribute any part of this repository.
+2. Republish, mirror, or re-host this code or its design assets, in whole
+   or in part, on any other website, service, or platform.
+3. Use this code or its design assets (including but not limited to the
+   fh-collectibles theme, the sr-payments plugin, generated imagery, and
+   brand styling) in any other project, commercial or non-commercial.
+4. Create derivative works based on this repository.
+5. Sublicense, sell, rent, or lease any part of it.
+
+THIRD-PARTY COMPONENTS
+----------------------
+WordPress and WooCommerce are distributed under the GNU General Public
+License (GPL) by their respective copyright holders. WooCommerce extension
+hooks used by the sr-payments plugin remain subject to GPL terms where
+applicable, as interpreted under the GPL's derivative-work provisions.
+This notice covers all original work contained in this repository.
+
+NO WARRANTY
+-----------
+This repository is provided "AS IS", without warranty of any kind.
+
+For permissions or questions, contact the repository owner via GitHub
+(@Shazid41).

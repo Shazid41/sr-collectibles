@@ -1,0 +1,30 @@
+# ---- Secrets & environment ----
+wp-config.php
+.htaccess
+*.env
+.env
+*.sql
+*.sqlite
+
+# ---- Logs & debug output ----
+*.log
+debug.log
+error_log
+
+# ---- Runtime media & caches (never publish) ----
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup*/
+
+# ---- OS & editor noise ----
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+node_modules/
+
+# ---- Temp ----
+tmp/
+*.tmp

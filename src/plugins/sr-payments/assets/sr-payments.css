@@ -1,0 +1,309 @@
+/* SR Secure Pay — branded card popup (demo mode). */
+
+.fh-paymodal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+.fh-paymodal.is-open { opacity: 1; visibility: visible; }
+body.fh-paymodal-open { overflow: hidden; }
+
+.fh-paymodal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 2, 5, 0.74);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  cursor: pointer;
+}
+
+.fh-paymodal__panel {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: linear-gradient(165deg, #24090f 0%, #17060b 55%, #100409 100%);
+  border: 1px solid rgba(233, 198, 90, 0.28);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 0, 0, 0.4), 0 0 60px rgba(233, 198, 90, 0.07);
+  transform: translateY(14px) scale(0.97);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fh-paymodal.is-open .fh-paymodal__panel { transform: translateY(0) scale(1); }
+
+.fh-paymodal__bar {
+  position: absolute;
+  top: 0;
+  left: 18px;
+  right: 18px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: linear-gradient(90deg, transparent, #e9c65a 30%, #a50d2f 65%, transparent);
+  opacity: 0.85;
+}
+
+.fh-paymodal__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 22px 22px 14px;
+}
+.fh-paymodal__brand {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(150deg, #a50d2f, #6e0720);
+  border: 1px solid rgba(233, 198, 90, 0.45);
+  color: #f4e9c9;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 14px rgba(165, 13, 47, 0.45);
+}
+.fh-paymodal__head h3 {
+  margin: 2px 0 3px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #f7f1e3;
+  letter-spacing: 0.01em;
+}
+.fh-paymodal__head p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: rgba(232, 226, 227, 0.62);
+}
+.fh-paymodal__close {
+  margin-left: auto;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.fh-paymodal__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.fh-paymodal__body { padding: 4px 22px 22px; }
+.fh-paymodal__body[hidden] { display: none; }
+
+.fh-paymodal__amount-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 14px;
+  margin-bottom: 16px;
+  border: 1px dashed rgba(233, 198, 90, 0.3);
+  border-radius: 11px;
+  background: rgba(233, 198, 90, 0.05);
+}
+.fh-paymodal__amount-row span { font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(232, 226, 227, 0.6); }
+.fh-paymodal__amount-row strong { font-size: 18px; color: #e9c65a; letter-spacing: 0.01em; }
+
+.fh-payfield { display: block; margin-bottom: 14px; }
+.fh-payfield > span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(232, 226, 227, 0.55);
+}
+.fh-payfield input {
+  width: 100%;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 11px;
+  background: rgba(9, 3, 6, 0.65);
+  color: #f7f1e3;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.fh-payfield input::placeholder { color: rgba(255, 255, 255, 0.28); letter-spacing: 0.06em; }
+.fh-payfield input:focus {
+  border-color: rgba(233, 198, 90, 0.65);
+  box-shadow: 0 0 0 3px rgba(233, 198, 90, 0.14);
+}
+.fh-payfield.has-error input { border-color: rgba(255, 92, 110, 0.75); }
+.fh-payfield em[data-srpay-error] {
+  display: none;
+  margin-top: 5px;
+  font-style: normal;
+  font-size: 11.5px;
+  color: #ff6b7a;
+}
+.fh-payfield.has-error em[data-srpay-error] { display: block; }
+
+.fh-payfield__num { position: relative; }
+.fh-payfield__num input { padding-right: 74px; }
+.fh-payfield__brand {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 46px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 10px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.fh-payfield__brand.is-visa { color: #9db7ff; background: rgba(26, 31, 113, 0.55); }
+.fh-payfield__brand.is-amex { color: #bfe0ff; background: rgba(46, 119, 188, 0.55); }
+.fh-payfield__brand.is-mc { background: rgba(255, 255, 255, 0.07); }
+.fh-payfield__brand:empty:not(.is-mc) { display: none; }
+.fh-payfield__brand.is-mc::before,
+.fh-payfield__brand.is-mc::after {
+  content: '';
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: block;
+}
+.fh-payfield__brand.is-mc::before { background: #eb001b; margin-right: -6px; }
+.fh-payfield__brand.is-mc::after { background: #f79e1b; opacity: 0.92; }
+
+.fh-paymodal__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.fh-paymodal__pay {
+  width: 100%;
+  height: 48px;
+  margin-top: 6px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f0d57c, #e9c65a 45%, #cfa13a);
+  color: #241303;
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(233, 198, 90, 0.22);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+.fh-paymodal__pay:hover { transform: translateY(-1px); box-shadow: 0 11px 26px rgba(233, 198, 90, 0.3); filter: brightness(1.04); }
+.fh-paymodal__pay:active { transform: translateY(0); }
+.fh-paymodal.is-busy .fh-paymodal__pay { pointer-events: none; opacity: 0.7; }
+
+/* Success step */
+.fh-paymodal__done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px 22px 34px;
+}
+.fh-paymodal__done[hidden] { display: none; }
+.fh-paymodal__done svg { display: block; margin-bottom: 16px; }
+.fh-paycheck__circle {
+  stroke: #e9c65a;
+  stroke-width: 2.5;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-linecap: round;
+  animation: fh-check-draw 0.7s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.fh-paycheck__tick {
+  stroke: #e9c65a;
+  stroke-width: 3;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: fh-check-draw 0.42s cubic-bezier(0.65, 0, 0.45, 1) 0.55s forwards;
+}
+@keyframes fh-check-draw { to { stroke-dashoffset: 0; } }
+.fh-paymodal__done h4 { margin: 0 0 6px; font-size: 19px; color: #f7f1e3; letter-spacing: 0.01em; }
+.fh-paymodal__done p { margin: 0; font-size: 13px; color: rgba(232, 226, 227, 0.6); }
+
+.fh-paymodal__foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  color: rgba(232, 226, 227, 0.45);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.fh-paymodal__foot svg { flex: 0 0 auto; opacity: 0.7; }
+.fh-paymodal__foot strong { color: rgba(233, 198, 90, 0.85); font-weight: 700; }
+
+/* Panel shake when validation fails */
+@keyframes fh-pay-shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-3px); }
+  40%, 60% { transform: translateX(3px); }
+}
+.fh-paymodal.is-error .fh-paymodal__panel { animation: fh-pay-shake 0.45s ease; }
+
+/* Checkout radio area: accepted-card marks + demo note */
+.sr-pay-marks { display: inline-flex; align-items: center; gap: 7px; margin: 9px 0 2px; }
+.sr-pay-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  min-width: 40px;
+  padding: 0 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 10px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.sr-pay-mark--visa { color: #9db7ff; }
+.sr-pay-mark--amex { color: #bfe0ff; }
+.sr-pay-mark--mc i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.sr-pay-mark--mc i:first-child { background: #eb001b; margin-right: -5px; }
+.sr-pay-mark--mc i:last-child { background: #f79e1b; opacity: 0.92; }
+.sr-pay-demo-note { display: block; margin-top: 6px; font-size: 11.5px; color: rgba(232, 226, 227, 0.5); }
+
+@media (max-width: 480px) {
+  .fh-paymodal { padding: 10px; align-items: flex-end; }
+  .fh-paymodal__panel { border-radius: 16px; }
+  .fh-paymodal__row { grid-template-columns: 1fr; gap: 0; }
+  .fh-paymodal__head { padding: 18px 16px 10px; }
+  .fh-paymodal__body { padding: 2px 16px 18px; }
+  .fh-paymodal__foot { padding: 10px 16px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fh-paymodal, .fh-paymodal__panel { transition: none; }
+  .fh-paycheck__circle, .fh-paycheck__tick { animation-duration: 0.01s; animation-delay: 0s; }
+  .fh-paymodal.is-error .fh-paymodal__panel { animation: none; }
+}
